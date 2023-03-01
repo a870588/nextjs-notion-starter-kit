@@ -9,12 +9,12 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'Next.js Notion Starter Kit',
-  domain: 'nextjs-notion-starter-kit.transitivebullsh.it',
-  author: 'Travis Fischer',
+  name: 'Wayne Hsu Portfolio',
+  domain: 'waynehsu.site',
+  author: 'Wayne Hsu',
 
   // open graph metadata (optional)
-  description: 'Example Next.js Notion Starter Kit Site',
+  description: 'Wayne Hsu Portfolio',
 
   // social usernames (optional)
   twitter: '',
