@@ -1,5 +1,15 @@
 /**
- * This file contains site-specifc style overrides for Notion elements from
+ 
+.notion-aside {
+  display: none;
+}
+
+
+
+
+
+
+* This file contains site-specifc style overrides for Notion elements from
  * react-notion-x.
  *
  * react-notion-x's goal is to match styling as close as possible to Notion,
