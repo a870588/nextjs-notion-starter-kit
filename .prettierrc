@@ -8,6 +8,7 @@
   "bracketSameLine": false,
   "arrowParens": "always",
   "trailingComma": "none",
+  "printWidth": 100,
   "importOrder": [
     "^(react/(.*)$)|^(react$)|^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",

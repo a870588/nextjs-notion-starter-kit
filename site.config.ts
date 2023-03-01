@@ -11,7 +11,7 @@ export default siteConfig({
   // basic site info (required)
   name: 'Wayne Hsu Portfolio',
   domain: 'waynehsu.site',
-  author: 'Wayne Hsu',
+  author: 'Wayne HSU',
 
   // open graph metadata (optional)
   description: 'Wayne Hsu Portfolio',
@@ -31,7 +31,7 @@ export default siteConfig({
   defaultPageCoverPosition: 0.5,
 
   // whether or not to enable support for LQIP preview images (optional)
-  isPreviewImageSupportEnabled: true,
+  isPreviewImageSupportEnabled: process.env.NODE_ENV === 'production',
 
   // whether or not redis is enabled for caching generated preview images (optional)
   // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`
