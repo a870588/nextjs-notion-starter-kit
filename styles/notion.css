@@ -1,3 +1,7 @@
+body {
+  background: var(--bg-color);
+}
+
 .notion-aside {
   display: none !important;
 }
