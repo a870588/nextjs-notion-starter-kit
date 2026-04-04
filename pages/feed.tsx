@@ -41,7 +41,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     if (!recordMap) continue
 
     const keys = Object.keys(recordMap?.block || {})
-    const block = recordMap?.block?.[keys[0]]?.value
+    const blockEntry = recordMap?.block?.[keys[0]]
+    const block = (blockEntry as any)?.value || blockEntry
     if (!block) continue
 
     const parentPage = getBlockParentPage(block, recordMap)
