@@ -27,12 +27,14 @@ export const oembed = async ({
   if (pageTitle) title = pageTitle
 
   const userEntry = page.notion_user[Object.keys(page.notion_user)[0]]
-  const user = (userEntry as any)?.value || userEntry
-  const name = [user.given_name, user.family_name]
-    .filter(Boolean)
-    .join(' ')
-    .trim()
-  if (name) authorName = name
+  const user = userEntry ? ((userEntry as any)?.value || userEntry) : null
+  if (user) {
+    const name = [user.given_name, user.family_name]
+      .filter(Boolean)
+      .join(' ')
+      .trim()
+    if (name) authorName = name
+  }
 
   const params: any = { lite: 'true' }
   if (dark) {
