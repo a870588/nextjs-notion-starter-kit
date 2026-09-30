@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 
 import * as Fathom from 'fathom-client'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 import posthog from 'posthog-js'
@@ -20,13 +21,7 @@ import 'styles/notion.css'
 import 'styles/prism-theme.css'
 
 import { bootstrap } from '@/lib/bootstrap-client'
-import {
-  fathomConfig,
-  fathomId,
-  isServer,
-  posthogConfig,
-  posthogId
-} from '@/lib/config'
+import { fathomConfig, fathomId, isServer, posthogConfig, posthogId } from '@/lib/config'
 
 if (!isServer) {
   bootstrap()
@@ -61,5 +56,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Component {...pageProps} />
+      <SpeedInsights />
+    </>
+  )
 }
