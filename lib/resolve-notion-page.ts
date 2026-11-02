@@ -4,7 +4,7 @@ import { parsePageId } from 'notion-utils'
 import * as acl from './acl'
 import { environment, pageUrlAdditions, pageUrlOverrides, site } from './config'
 import { db } from './db'
-import { getSiteMap } from './get-site-map'
+import { getPageIdFromRoot, getSiteMap } from './get-site-map'
 import { getPage } from './notion'
 
 export async function resolveNotionPage(domain: string, rawPageId?: string) {
@@ -27,9 +27,7 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
 
     const useUriToPageIdCache = true
     const cacheKey = `uri-to-page-id:${domain}:${environment}:${rawPageId}`
-    // TODO: should we use a TTL for these mappings or make them permanent?
-    // const cacheTTL = 8.64e7 // one day in milliseconds
-    const cacheTTL = undefined // disable cache TTL
+    const cacheTTL = 10000
 
     if (!pageId && useUriToPageIdCache) {
       try {
@@ -41,6 +39,10 @@ export async function resolveNotionPage(domain: string, rawPageId?: string) {
         // ignore redis errors
         console.warn(`redis error get "${cacheKey}"`, err.message)
       }
+    }
+
+    if (!pageId) {
+      pageId = await getPageIdFromRoot(rawPageId)
     }
 
     if (pageId) {
