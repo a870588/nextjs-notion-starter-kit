@@ -1,4 +1,5 @@
-import { getAllPagesInSpace, uuidToId } from 'notion-utils'
+import ExpiryMap from 'expiry-map'
+import { getAllPagesInSpace, getBlockValue, uuidToId } from 'notion-utils'
 import pMemoize from 'p-memoize'
 
 import * as config from './config'
@@ -21,8 +22,27 @@ export async function getSiteMap(): Promise<types.SiteMap> {
   } as types.SiteMap
 }
 
+// The root page includes database rows shown on the homepage. Look up their
+// current titles directly so newly renamed pages do not depend on a stale map.
+export async function getPageIdFromRoot(
+  slug: string
+): Promise<string | undefined> {
+  const recordMap = await notion.getPage(config.rootNotionPageId)
+
+  return Object.keys(recordMap.block).find((pageId) => {
+    const block = getBlockValue(recordMap.block[pageId])
+
+    return (
+      block?.type === 'page' &&
+      block.alive !== false &&
+      getCanonicalPageId(pageId, recordMap, { uuid }) === slug
+    )
+  })
+}
+
 const getAllPages = pMemoize(getAllPagesImpl, {
-  cacheKey: (...args) => JSON.stringify(args)
+  cacheKey: (...args) => JSON.stringify(args),
+  cache: new ExpiryMap(10000)
 })
 
 async function getAllPagesImpl(
