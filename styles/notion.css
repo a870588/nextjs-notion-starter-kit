@@ -136,6 +136,11 @@ body {
   margin-bottom: 0.25em;
 }
 
+/* Keep heading hash targets while hiding the unused permalink control. */
+.notion-h .notion-hash-link {
+  display: none;
+}
+
 .notion-callout {
   margin: 0.75em 0;
 }
